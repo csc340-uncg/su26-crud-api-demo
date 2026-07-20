@@ -28,6 +28,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/posts/new">Create Post</a>
           </li>
+          <#if Session.SPRING_SECURITY_CONTEXT??>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">(${Session.SPRING_SECURITY_CONTEXT.authentication.name}) Sign Out</a>
+            </li>
+          </#if>
         </ul>
       </div>
     </div>

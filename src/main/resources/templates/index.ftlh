@@ -29,6 +29,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/posts/new">Create Post</a>
           </li>
+          <#if Session.SPRING_SECURITY_CONTEXT??>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">(${Session.SPRING_SECURITY_CONTEXT.authentication.name}) Sign Out</a>
+            </li>
+          </#if>
         </ul>
       </div>
     </div>
@@ -39,7 +44,7 @@
     <p>This application allows you to create, read, update, and delete blog posts.</p>
     <a href="/posts" class="btn btn-primary mt-3">View Posts (MVC)</a>
     <a href="/api/posts" class="btn btn-secondary mt-3">View Posts (API)</a>
-    <h3 > Other API Endpoints </h3>
+    <h3> Other API Endpoints </h3>
     <ul class="list-unstyled">
       <li><a href="/api/posts" class="btn btn-link">GET /api/posts</a></li>
       <li><a href="/api/posts/1" class="btn btn-link">GET /api/posts/{id}</a></li>
