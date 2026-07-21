@@ -43,7 +43,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAuthority("ROLE_ADMIN")
             // UI endpoints
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .requestMatchers("/static/**", "/css/**", "/profile-pictures/**", "/style.css", "/**/*.css", "/*.jpg", "/*.png", "/*.gif").permitAll()
+            .requestMatchers("/static/**", "/style.css", "/**/*.css", "/*.jpg", "/*.png", "/*.gif").permitAll()
             .requestMatchers("/", "/signup").permitAll()
             .requestMatchers("/posts/new", "/posts/save", "/posts/update/**")
             .hasAnyAuthority("ROLE_ADMIN", "ROLE_WRITER")
