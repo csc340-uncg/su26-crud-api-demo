@@ -39,6 +39,18 @@
   </nav>
   <div class="container" style="margin: 20px;">
     <h1>${pageTitle}</h1>
+    <#if RequestParameters.success??>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Post updated successfully!
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    </#if>
+    <#if RequestParameters.error??>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Error updating post!
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    </#if>
     <div class="card" style="width: 50rem; margin: 20px;">
       <h1 class="card-header">${post.title}</h1>
       <img src="/images/${(post.thumbnailUrl)!'default.jpg'}" class="card-img-top" alt="Thumbnail for ${post.id?c}">

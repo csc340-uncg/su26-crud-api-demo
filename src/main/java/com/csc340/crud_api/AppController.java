@@ -3,8 +3,7 @@ package com.csc340.crud_api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 import com.csc340.crud_api.users.User;
 import com.csc340.crud_api.users.UserService;
 
@@ -22,7 +21,7 @@ public class AppController {
     return "index";
   }
 
-  @GetMapping("/403")
+  @RequestMapping("/403")
   public String accessDenied() {
     return "403";
   }

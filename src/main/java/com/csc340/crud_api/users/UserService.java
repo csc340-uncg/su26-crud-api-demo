@@ -3,7 +3,6 @@ package com.csc340.crud_api.users;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
 
 @Service
 public class UserService {

@@ -36,12 +36,21 @@ public class SecurityConfig {
             .dispatcherTypeMatchers(DispatcherType.FORWARD,
                 DispatcherType.ERROR)
             .permitAll()
+            // api endpoints
+            .requestMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/posts").hasAnyAuthority("ROLE_ADMIN", "ROLE_WRITER")
+            .requestMatchers(HttpMethod.PUT, "/api/posts").hasAnyAuthority("ROLE_ADMIN", "ROLE_WRITER")
+            .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAuthority("ROLE_ADMIN")
+            // UI endpoints
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .requestMatchers("/static/**", "/css/**", "/profile-pictures/**", "/*.jpg", "/*.png", "/*.gif").permitAll()
             .requestMatchers("/", "/signup").permitAll()
-            .requestMatchers( "/posts/update/**", "/posts/delete/**").hasRole("ADMIN")
+            .requestMatchers("/posts/new", "/posts/save", "/posts/update/**")
+            .hasAnyAuthority("ROLE_ADMIN", "ROLE_WRITER")
+            .requestMatchers("/posts/delete/**").hasAuthority("ROLE_ADMIN")
             .anyRequest().authenticated())
-        .formLogin(Customizer.withDefaults())
+        .formLogin(form -> form
+            .defaultSuccessUrl("/posts"))
         .exceptionHandling((x) -> x.accessDeniedPage("/403"))
         .logout(Customizer.withDefaults())
         .requestCache((cache) -> cache

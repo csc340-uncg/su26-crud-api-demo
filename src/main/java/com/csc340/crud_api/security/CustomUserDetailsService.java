@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.csc340.crud_api.users.User;
 import com.csc340.crud_api.users.UserRepository;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -30,9 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     if (role != null) {
       if (role.equals("ADMIN")) {
         authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-      } else if (role.equals("USER")) {
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authList.add(new SimpleGrantedAuthority("ROLE_WRITER"));
+        authList.add(new SimpleGrantedAuthority("ROLE_GUEST"));
+      } else if (role.equals("WRITER")) {
+        authList.add(new SimpleGrantedAuthority("ROLE_WRITER"));
+      } else if (role.equals("GUEST")) {
+        authList.add(new SimpleGrantedAuthority("ROLE_GUEST"));
       }
     }
     return new org.springframework.security.core.userdetails.User(appUser.getUsername(), appUser.getPassword(),

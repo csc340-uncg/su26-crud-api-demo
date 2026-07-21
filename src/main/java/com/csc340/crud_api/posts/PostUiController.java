@@ -70,7 +70,7 @@ public class PostUiController {
       if (thumbnailFile != null && !thumbnailFile.isEmpty()) {
         postService.saveThumbnail(post, thumbnailFile);
       }
-      return "redirect:/posts/" + post.getId();
+      return "redirect:/posts/" + post.getId() + "?success=true";
     }
     return "redirect:/posts/" + id + "?error=true";
   }
