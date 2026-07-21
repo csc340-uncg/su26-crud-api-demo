@@ -43,13 +43,14 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/api/posts/**").hasAuthority("ROLE_ADMIN")
             // UI endpoints
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .requestMatchers("/static/**", "/css/**", "/profile-pictures/**", "/*.jpg", "/*.png", "/*.gif").permitAll()
+            .requestMatchers("/static/**", "/css/**", "/profile-pictures/**", "/style.css", "/**/*.css", "/*.jpg", "/*.png", "/*.gif").permitAll()
             .requestMatchers("/", "/signup").permitAll()
             .requestMatchers("/posts/new", "/posts/save", "/posts/update/**")
             .hasAnyAuthority("ROLE_ADMIN", "ROLE_WRITER")
             .requestMatchers("/posts/delete/**").hasAuthority("ROLE_ADMIN")
             .anyRequest().authenticated())
         .formLogin(form -> form
+            .loginPage("/login").permitAll()
             .defaultSuccessUrl("/posts"))
         .exceptionHandling((x) -> x.accessDeniedPage("/403"))
         .logout(Customizer.withDefaults())
