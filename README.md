@@ -10,7 +10,7 @@
 - Once the security dependency is included, Security must be configured. The following are the elements needed for that:
      -   A User service class [CustomUserDetailsService](https://github.com/csc340-uncg/su26-crud-api-demo/blob/8f7f793bd84d174d98703b8e90a8a742a1acc903/src/main/java/com/csc340/crud_api/security/CustomUserDetailsService.java#L15)
          - It implements UserDetailsService. This will make it possible to use the connection to the database to access our saved users using their usernames and passwords. In the User repo, we implement a [method](https://github.com/csc340-uncg/su26-crud-api-demo/blob/8f7f793bd84d174d98703b8e90a8a742a1acc903/src/main/java/com/csc340/crud_api/users/UserRepository.java#L8) for finding a user by username.
-         - After fetching the student from the database, we build a "security" User object using the username, password, and authorities. For this setup, we get the authority from their "role" attribute in the database.
+         - After fetching the user from the database, we build a "security" User object using the username, password, and authorities. For this setup, we get the authority from their "role" attribute in the database.
 
   -  A Security configuration class - [Security Config](https://github.com/csc340-uncg/su26-crud-api-demo/blob/8f7f793bd84d174d98703b8e90a8a742a1acc903/src/main/java/com/csc340/crud_api/security/SecurityConfig.java#L21)
       -   Annotated with `@Configuration` and `@EnableWebSecurity`
@@ -20,6 +20,6 @@
       -   There are other rules for authorization [here](https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html#authorize-requests)
       -   Provide a login configuration. This can either be [default or customized](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html#servlet-authentication-form-custom).
       -   Add an [exception handler](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html). If a request is not authorized based on the rules defined above, the app will send a GET request to /403. You can customize this whatever you want but you MUST have the endpoint mapped in some controller.
-      -   Logout is also permitted for everyone.
+      -   Login is also permitted for everyone.
       -   Configure an authentication manager. We are using the BCryptPasswordEncoder from Spring Security, and the previously mentioned CustomUserDetailsService to enforce the above rules for any user who logs in.
       -   Note that when we create Users ([UserService ](https://github.com/csc340-uncg/su26-crud-api-demo/blob/8f7f793bd84d174d98703b8e90a8a742a1acc903/src/main/java/com/csc340/crud_api/users/UserService.java#L24)), we employ this same password encoder, that way passwords are never stored in plain text. However, we need to create the [Bean](https://github.com/csc340-uncg/su26-crud-api-demo/blob/8f7f793bd84d174d98703b8e90a8a742a1acc903/src/main/java/com/csc340/crud_api/security/SecurityConfig.java#L68) in SecurityConfig before we can inject it in the Service. Very straight forward, I know.
